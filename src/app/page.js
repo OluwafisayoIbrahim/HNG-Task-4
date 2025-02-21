@@ -521,7 +521,7 @@ const deduplicateSummary = (summaryText) => {
         <TopBar />
       </div>
       <div
-        className="messages flex-1 overflow-y-auto overflow-x-hidden space-y-4 mb-4"
+        className="messages flex-1 overflow-y-auto bg-white dark:bg-white overflow-x-hidden space-y-4 mb-4"
         role="log"
         aria-label="Message history"
       >
