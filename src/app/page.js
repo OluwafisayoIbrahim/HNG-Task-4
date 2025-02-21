@@ -673,7 +673,7 @@ const deduplicateSummary = (summaryText) => {
               className={cn(
                 "w-full p-3 pr-12 resize-none h-[48px]",
                 "bg-[rgba(255,255,255,0.5)] border border-[#C8C8CC] rounded-[32px]",
-                "focus:outline-none focus:ring-2 focus:ring-blue-500",
+                "focus:outline-none focus:ring-2 focus:ring-blue-500 text-black dark:text-black" ,
                 "disabled:opacity-50 caret-[#3478F6] font-sfRegular disabled:cursor-not-allowed"
               )}
               disabled={isProcessing}
