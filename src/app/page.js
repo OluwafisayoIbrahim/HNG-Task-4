@@ -513,7 +513,7 @@ const deduplicateSummary = (summaryText) => {
 
   return (
     <div
-      className="chat-container w-full mx-auto flex flex-col h-screen"
+      className="chat-container w-full bg-white dark:bg-white mx-auto flex flex-col h-screen"
       role="main"
       aria-label="Chat Interface"
     >
