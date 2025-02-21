@@ -719,7 +719,7 @@ const deduplicateSummary = (summaryText) => {
       placeholder="Type your message here..."
       className={cn(
         "w-full p-3 pr-12 resize-none h-[48px]",
-        "bg-[rgba(255,255,255,0.5)] border border-[#C8C8CC] rounded-[32px]",
+        "bg-[rgba(255,255,255,0.5)] border border-[#C8C8CC] rounded-[32px] text-black dark:text-black",
         "focus:outline-none focus:ring-2 focus:ring-blue-500",
         "disabled:opacity-50 caret-[#3478F6] disabled:cursor-not-allowed"
       )}
