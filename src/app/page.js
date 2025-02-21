@@ -8,6 +8,8 @@ import { SendIcon, SendIconMobile } from "./components/SendIcon";
 import TopBar from "./components/TopBar";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import CameraIcon from "./components/CameraIcon";
+import AppStoreIcon from "./components/AppStoreIcon";
 
 // Helper to count words
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
@@ -515,7 +517,7 @@ const deduplicateSummary = (summaryText) => {
       role="main"
       aria-label="Chat Interface"
     >
-      <div className="sticky top-0 z-10 bg-white mb-4">
+      <div className="sticky top-0 z-10 bg-white dark:bg-white mb-4">
         <TopBar />
       </div>
       <div
@@ -659,7 +661,10 @@ const deduplicateSummary = (summaryText) => {
       >
         <form onSubmit={handleSend} className="relative">
           {/* XL Variant – Full textarea & send button */}
-          <div className="hidden xl:block">
+          <div className="xl:flex items-center space-x-2 xs:hidden">
+          <CameraIcon />
+  <AppStoreIcon />
+          <div className=" relative flex-1 hidden xl:block">
             <input
               ref={textareaRef}
               value={inputText}
@@ -696,42 +701,45 @@ const deduplicateSummary = (summaryText) => {
               )}
             </button>
           </div>
+          </div>
 
           {/* XS Variant – Custom “Bar” with send arrow */}
-          <div
-            className="xl:hidden relative"
-            // When the bar is tapped, focus the (hidden) textarea so the user can type.
-            onClick={() => textareaRef.current && textareaRef.current.focus()}
-          >
-            {/* Bar container styled as per design */}
-            <input
-              ref={textareaRef}
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder="Type your message here..."
-              className={cn(
-                "w-full p-3 pr-12 resize-none h-[48px]",
-                "bg-[rgba(255,255,255,0.5)] border border-[#C8C8CC] rounded-[32px]",
-                "focus:outline-none focus:ring-2 focus:ring-blue-500",
-                "disabled:opacity-50 caret-[#3478F6] disabled:cursor-not-allowed"
-              )}
-            />
-            {/* Display the input text if available, or fallback placeholder text */}
+          <div className="flex items-center space-x-2 xl:hidden">
+  <CameraIcon />
+  <AppStoreIcon />
+  <div
+    className="relative flex-1 xl:hidden"
+    onClick={() => textareaRef.current && textareaRef.current.focus()}
+  >
+    {/* Input container */}
+    <input
+      ref={textareaRef}
+      value={inputText}
+      onChange={(e) => setInputText(e.target.value)}
+      placeholder="Type your message here..."
+      className={cn(
+        "w-full p-3 pr-12 resize-none h-[48px]",
+        "bg-[rgba(255,255,255,0.5)] border border-[#C8C8CC] rounded-[32px]",
+        "focus:outline-none focus:ring-2 focus:ring-blue-500",
+        "disabled:opacity-50 caret-[#3478F6] disabled:cursor-not-allowed"
+      )}
+    />
+    {/* Send Arrow Button */}
+    <button
+      type="submit"
+      disabled={isProcessing || !inputText.trim()}
+      className="absolute w-[27px] h-[27px] right-[15px] top-[4.5px] z-[1]"
+      aria-label={isProcessing ? "Sending message..." : "Send message"}
+    >
+      {isProcessing ? (
+        <Loader2 className="w-5 h-5 animate-spin" />
+      ) : (
+        <SendIconMobile className="w-5 h-5" />
+      )}
+    </button>
+  </div>
+</div>
 
-            {/* Send Arrow Button */}
-            <button
-              type="submit"
-              disabled={isProcessing || !inputText.trim()}
-              className="absolute w-[27px] h-[27px] right-[15px] top-[4.5px] z-[1]"
-              aria-label={isProcessing ? "Sending message..." : "Send message"}
-            >
-              {isProcessing ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <SendIconMobile className="w-5 h-5" />
-              )}
-            </button>
-          </div>
         </form>
       </div>
     </div>

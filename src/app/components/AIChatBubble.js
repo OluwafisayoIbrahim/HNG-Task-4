@@ -54,7 +54,7 @@ const AIChatBubble = ({
               {/* Tail outer edge */}
               <div className="absolute inset-0 bg-[#E6E5EB] rounded-br-[20px]"/>
               {/* Tail inner edge */}
-              <div className="absolute right-[75%] left-[-145%] top-[-121.05%] bottom-[-21.05%] z-0 bg-white rounded-br-[14px]" />
+              <div className="absolute right-[75%] left-[-145%] top-[-121.05%] bottom-[-21.05%] z-0 bg-white dark:bg-white rounded-br-[14px]" />
             </div>
         </div>
 

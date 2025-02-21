@@ -24,7 +24,7 @@ const UserChatBubble = ({
               {/* Tail outer edge */}
               <div className="absolute inset-0 bg-[#007AFF] rounded-bl-[20px]"/>
               {/* Tail inner edge */}
-              <div className="absolute left-[75%] right-[-145%] top-[-121.05%] bottom-[-21.05%] bg-white rounded-bl-[14px]" />
+              <div className="absolute left-[75%] right-[-145%] top-[-121.05%] bottom-[-21.05%] bg-white dark:bg-white rounded-bl-[14px]" />
             </div>
           </div>
         </div>
