@@ -23,17 +23,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* <----- Translator Token --------> */}
         <meta
           httpEquiv="origin-trial"
           content={process.env.NEXT_PUBLIC_ORIGIN_TRIAL_TOKEN_TRANSLATOR}
         />
-        {/* <----- Language Detector Token ------> */}
         <meta
           httpEquiv="origin-trial"
           content={process.env.NEXT_PUBLIC_ORIGIN_TRIAL_TOKEN_LANGAUAGE_DETECTOR}
         />
-        {/* <----- Summarization Token ------> */}
         <meta
           httpEquiv="origin-trial"
           content={process.env.NEXT_PUBLIC_ORIGIN_TRIAL_TOKEN_SUMMARIZATION}

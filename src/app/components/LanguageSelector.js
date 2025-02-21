@@ -2,7 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
-export default function LanguageSelector({ onSelectLanguage, onDropdownToggle }) {
+export default function LanguageSelector({
+  onSelectLanguage,
+  onDropdownToggle,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [dropdownDirection, setDropdownDirection] = useState("down");
@@ -32,12 +35,11 @@ export default function LanguageSelector({ onSelectLanguage, onDropdownToggle })
 
   const handleNativeSelect = (event) => {
     const selectedCode = event.target.value;
-    const selectedName = languages.find((lang) => lang.code === selectedCode)?.name || "";
+    const selectedName =
+      languages.find((lang) => lang.code === selectedCode)?.name || "";
     setSelectedLanguage(selectedName);
     onSelectLanguage(selectedCode);
   };
-
-  // When the dropdown opens, check if there’s enough space below.
   useEffect(() => {
     if (isOpen) {
       requestAnimationFrame(() => {
@@ -45,26 +47,30 @@ export default function LanguageSelector({ onSelectLanguage, onDropdownToggle })
           const buttonRect = buttonRef.current.getBoundingClientRect();
           const dropdownHeight = dropdownRef.current.offsetHeight;
           const spaceBelow = window.innerHeight - buttonRect.bottom;
-          // If there's not enough space below, show above.
           setDropdownDirection(spaceBelow < dropdownHeight ? "up" : "down");
         }
       });
     }
   }, [isOpen]);
 
-  // Set positioning classes based on the direction.
-  const dropdownPositionClass = dropdownDirection === "down" ? "mt-1" : "bottom-full mb-1";
+  const dropdownPositionClass =
+    dropdownDirection === "down" ? "mt-1" : "bottom-full mb-1";
 
   return (
     <div className="relative">
-      {/* Native Select (For Accessibility & Form Integration) */}
       <select
-        value={selectedLanguage ? languages.find((lang) => lang.name === selectedLanguage)?.code : ""}
+        value={
+          selectedLanguage
+            ? languages.find((lang) => lang.name === selectedLanguage)?.code
+            : ""
+        }
         onChange={handleNativeSelect}
         className="hidden"
         aria-hidden="true"
       >
-        <option value="" disabled>Select</option>
+        <option value="" disabled>
+          Select
+        </option>
         {languages.map((lang) => (
           <option key={lang.code} value={lang.code}>
             {lang.name}
@@ -72,7 +78,6 @@ export default function LanguageSelector({ onSelectLanguage, onDropdownToggle })
         ))}
       </select>
 
-      {/* Custom Animated Dropdown */}
       <button
         ref={buttonRef}
         onClick={() => handleToggle(!isOpen)}
@@ -85,7 +90,6 @@ export default function LanguageSelector({ onSelectLanguage, onDropdownToggle })
         </div>
       </button>
 
-      {/* Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -97,24 +101,30 @@ export default function LanguageSelector({ onSelectLanguage, onDropdownToggle })
             transition={{ duration: 0.2 }}
             className={`absolute z-50 ${dropdownPositionClass} w-full xs:w-48 xl:w-64 bg-gray-50/80 backdrop-blur-xl border border-gray-200/50 rounded-lg shadow-lg overflow-hidden`}
           >
-            {/* Header */}
             <div className="flex justify-between px-3 py-2 border-b border-gray-200/50">
-              <button onClick={() => setIsOpen(false)} className="text-blue-500 text-xs xl:text-sm font-medium">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-blue-500 text-xs xl:text-sm font-medium"
+              >
                 Cancel
               </button>
-              <button onClick={() => setIsOpen(false)} className="text-blue-500 text-xs xl:text-sm font-semibold">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-blue-500 text-xs xl:text-sm font-semibold"
+              >
                 Done
               </button>
             </div>
 
-            {/* Options list */}
             <div className="max-h-48 overflow-y-auto">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => handleSelect(lang.code, lang.name)}
                   className={`w-full px-3 py-2.5 text-center text-sm xl:text-base hover:bg-gray-100/50 ${
-                    selectedLanguage === lang.name ? "text-blue-500 font-medium" : "text-gray-900"
+                    selectedLanguage === lang.name
+                      ? "text-blue-500 font-medium"
+                      : "text-gray-900"
                   }`}
                 >
                   {lang.name}

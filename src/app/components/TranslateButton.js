@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-const TranslateButton = ({ 
-  text, 
-  sourceLanguage, 
-  targetLanguage, 
+const TranslateButton = ({
+  text,
+  sourceLanguage,
+  targetLanguage,
   onTranslated,
-  onError // <-- Callback for error handling
+  onError,
 }) => {
   const languageNames = {
     en: "English",
@@ -13,10 +13,10 @@ const TranslateButton = ({
     es: "Spanish",
     ru: "Russian",
     tr: "Turkish",
-    fr: "French"
+    fr: "French",
   };
 
-  const [localError, setLocalError] = useState('');
+  const [localError, setLocalError] = useState("");
 
   const handleTranslate = async () => {
     if (!("ai" in window) || !("translator" in window.ai)) {
@@ -28,24 +28,27 @@ const TranslateButton = ({
     }
 
     try {
-      // Check if the language pair is supported
       const translatorCapabilities = await window.ai.translator.capabilities();
-      const isLanguagePairAvailable = await translatorCapabilities.languagePairAvailable(sourceLanguage, targetLanguage);
+      const isLanguagePairAvailable =
+        await translatorCapabilities.languagePairAvailable(
+          sourceLanguage,
+          targetLanguage
+        );
 
       if (isLanguagePairAvailable !== "readily") {
-        const errMsg = `Translation not supported for ${languageNames[sourceLanguage] || sourceLanguage} to ${languageNames[targetLanguage] || targetLanguage}.`;
+        const errMsg = `Translation not supported for ${
+          languageNames[sourceLanguage] || sourceLanguage
+        } to ${languageNames[targetLanguage] || targetLanguage}.`;
         setLocalError(errMsg);
         onError && onError(errMsg);
         return;
       }
 
-      // Create the translator instance
       const translator = await window.ai.translator.create({
         sourceLanguage,
-        targetLanguage
+        targetLanguage,
       });
 
-      // Translate the text
       const result = await translator.translate(text);
       if (result) {
         onTranslated(result, targetLanguage);
@@ -56,9 +59,12 @@ const TranslateButton = ({
       }
     } catch (err) {
       console.error("Translation failed:", err);
-      const errMsg = err.name === "NotSupportedError" 
-        ? `Translation not supported for ${languageNames[sourceLanguage] || sourceLanguage} to ${languageNames[targetLanguage] || targetLanguage}.`
-        : "An unexpected error occurred.";
+      const errMsg =
+        err.name === "NotSupportedError"
+          ? `Translation not supported for ${
+              languageNames[sourceLanguage] || sourceLanguage
+            } to ${languageNames[targetLanguage] || targetLanguage}.`
+          : "An unexpected error occurred.";
       setLocalError(errMsg);
       onError && onError(errMsg);
     }
@@ -66,10 +72,12 @@ const TranslateButton = ({
 
   return (
     <div>
-      <button onClick={handleTranslate} className="bg-[#007AFF] rounded-[12px] h-[34px] w-[150px]">
+      <button
+        onClick={handleTranslate}
+        className="bg-[#007AFF] rounded-[12px] h-[34px] w-[150px]"
+      >
         <span className="font-sfRegular text-white">Translate</span>
       </button>
-      {/* Inline error display removed */}
     </div>
   );
 };
